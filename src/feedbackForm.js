@@ -232,7 +232,7 @@ const FeedbackForm = () => {
       )}
       {redirecting && rating === 5 && (
         <CountdownMessage>
-          Thank you so much for your Trust in us! Please let the world know about your experience in {countdown} seconds...
+          "Thank you so much for your trust in us! It would mean the world to us if you could share your experience on Google. Redirecting you in {countdown} seconds…"
         </CountdownMessage>
       )}
     </Container>
