@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import { useParams } from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom';
 import { supabase } from './supabaseClient';
 
 const Container = styled.div`
@@ -94,8 +94,21 @@ const SubmitButton = styled.button`
   }
 `;
 
+const ErrorMessage = styled.div`
+  color: #d32f2f;
+  text-align: center;
+  padding: 20px;
+  border-radius: 8px;
+  background-color: #ffebee;
+  margin-bottom: 20px;
+  width: 100%;
+`;
+
 const FeedbackForm = () => {
-  const { placeId, hospitalId } = useParams();
+  const [searchParams] = useSearchParams();
+  const placeId = searchParams.get('placeId');
+  const hospitalId = searchParams.get('hospitalId');
+
   const [rating, setRating] = useState(0);
   const [hoveredStar, setHoveredStar] = useState(0);
   const [feedback, setFeedback] = useState("");
@@ -103,6 +116,13 @@ const FeedbackForm = () => {
   const [redirecting, setRedirecting] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    if (!placeId || !hospitalId) {
+      setError("Invalid feedback link. Please contact the hospital for assistance.");
+    }
+  }, [placeId, hospitalId]);
 
   useEffect(() => {
     if (rating === 5 && redirecting && countdown > 0) {
@@ -123,11 +143,14 @@ const FeedbackForm = () => {
       try {
         await supabase.from('feedback').insert({
           hospital_id: hospitalId,
+          place_id: placeId,
           number_of_stars: 5,
           feedback: ''
         });
       } catch (error) {
         console.error('Error submitting rating:', error);
+        setError("Failed to submit rating. Please try again.");
+        setRedirecting(false);
       }
     } else {
       setRedirecting(false);
@@ -137,9 +160,12 @@ const FeedbackForm = () => {
 
   const handleSubmit = async () => {
     setIsSubmitting(true);
+    setError(null);
+
     try {
       await supabase.from('feedback').insert({
         hospital_id: hospitalId,
+        place_id: placeId,
         number_of_stars: rating,
         feedback: feedback
       });
@@ -148,11 +174,19 @@ const FeedbackForm = () => {
       setRating(0);
     } catch (error) {
       console.error('Error submitting feedback:', error);
-      alert('Failed to submit feedback. Please try again.');
+      setError("Failed to submit feedback. Please try again.");
     } finally {
       setIsSubmitting(false);
     }
   };
+
+  if (error) {
+    return (
+      <Container>
+        <ErrorMessage>{error}</ErrorMessage>
+      </Container>
+    );
+  }
 
   if (isSubmitted) {
     return (
