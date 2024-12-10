@@ -240,7 +240,7 @@ const FeedbackForm = () => {
   const [rating, setRating] = useState(0);
   const [hoveredStar, setHoveredStar] = useState(0);
   const [feedback, setFeedback] = useState("");
-  const [countdown, setCountdown] = useState(4);
+  const [countdown, setCountdown] = useState(6);
   const [showModal, setShowModal] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -437,9 +437,10 @@ const FeedbackForm = () => {
                   times: [0, 0.5, 1],
                 }}
               >
-                <ModalTitle>Thank You!</ModalTitle>
+                <ModalTitle>Thank You for your Trust!</ModalTitle>
               </motion.div>
               <ModalText>Your support means the world to us!</ModalText>
+              <ModalText> Your positive feedback on Google would really inspire us to keep improving.</ModalText>
 
               <CountdownCircle>
                 <SpinningBorder />
