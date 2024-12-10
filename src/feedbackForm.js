@@ -297,7 +297,6 @@ const FeedbackForm = () => {
       try {
         await supabase.from('feedback').insert({
           hospital_id: hospitalId,
-          place_id: placeId,
           number_of_stars: 5,
           feedback: ''
         });
@@ -319,7 +318,7 @@ const FeedbackForm = () => {
     try {
       await supabase.from('feedback').insert({
         hospital_id: hospitalId,
-        place_id: placeId,
+        //place_id: placeId,
         number_of_stars: rating,
         feedback: feedback.trim()
       });
