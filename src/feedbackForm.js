@@ -22,12 +22,16 @@ const PageContainer = styled.div`
   justify-content: flex-start;
   align-items: center;
   background: #f9fafb;
-  height: 100vh;
+  min-height: 100vh;
   width: 100%;
-  padding: 16px;
+  padding: 1rem;
   box-sizing: border-box;
   overflow-x: hidden;
   overflow-y: auto;
+  
+  @media (max-width: 768px) {
+    padding: 0.75rem;
+  }
 `;
 
 const TopBar = styled.div`
@@ -36,15 +40,15 @@ const TopBar = styled.div`
   margin: 0 auto;
   text-align: center;
   background: #fff;
-  padding: 12px;
-  border-radius: 12px;
-  margin-top: 16px;
+  padding: 0.75rem;
+  border-radius: 0.75rem;
+  margin-top: 1rem;
   box-shadow: 0 2px 10px rgba(0,0,0,0.1);
   animation: ${fadeIn} 0.5s ease forwards;
 `;
 
 const HospitalName = styled.h1`
-  font-size: 18px;
+  font-size: 1.125rem;
   font-weight: 600;
   color: #333;
   margin: 0;
@@ -54,34 +58,45 @@ const Card = styled(motion.div)`
   background: #fff;
   width: 100%;
   max-width: 400px;
-  margin-top: 16px;
-  border-radius: 12px;
+  margin-top: 1rem;
+  border-radius: 0.75rem;
   box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-  padding: 20px;
+  padding: 1.25rem;
   box-sizing: border-box;
 `;
 
 const Title = styled.h2`
-  font-size: 20px;
+  font-size: 1.25rem;
   font-weight: 700;
   text-align: center;
-  margin-bottom: 24px;
+  margin-bottom: 1.5rem;
   color: #333;
 `;
 
 const StarsContainer = styled.div`
   display: flex;
   justify-content: center;
-  margin-bottom: 24px;
+  margin-bottom: 1.5rem;
+  gap: 0.5rem;
 `;
 
 const StarButton = styled(motion.button)`
   background: none;
   border: none;
-  font-size: 32px;
+  font-size: 2rem;
   cursor: pointer;
-  margin: 0 4px;
-  outline: none;
+  padding: 0.75rem;
+  min-width: 48px;
+  min-height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+
+  @media (max-width: 768px) {
+    padding: 0.5rem;
+  }
 
   &:focus {
     outline: none;
@@ -91,32 +106,37 @@ const StarButton = styled(motion.button)`
 const FeedbackTextarea = styled.textarea`
   width: 100%;
   height: 100px;
-  border-radius: 8px;
+  border-radius: 0.5rem;
   border: 1px solid #ccc;
-  padding: 12px;
-  font-size: 14px;
+  padding: 0.75rem;
+  font-size: 1rem;
   resize: none;
   outline: none;
   box-sizing: border-box;
-  margin-bottom: 16px;
+  margin-bottom: 1rem;
   transition: border-color 0.2s;
+  -webkit-appearance: none;
+  font-family: inherit;
 
   &:focus {
     border-color: #3b82f6;
+    font-size: 16px;
   }
 `;
 
 const SubmitButton = styled.button`
   width: 100%;
-  padding: 12px;
+  padding: 0.75rem;
   background: ${({disabled}) => (disabled ? '#ccc' : '#3b82f6')};
   color: #fff;
   border: none;
-  border-radius: 8px;
-  font-size: 16px;
+  border-radius: 0.5rem;
+  font-size: 1rem;
   font-weight: 600;
   cursor: ${({disabled}) => (disabled ? 'not-allowed' : 'pointer')};
   transition: background 0.2s;
+  min-height: 48px;
+  touch-action: manipulation;
 
   &:hover {
     background: ${({disabled}) => (disabled ? '#ccc' : '#2563eb')};
@@ -126,22 +146,24 @@ const SubmitButton = styled.button`
 const ErrorBox = styled.div`
   background: #fee2e2;
   color: #b91c1c;
-  padding: 16px;
-  border-radius: 12px;
+  padding: 1rem;
+  border-radius: 0.75rem;
   text-align: center;
-  margin-top: 24px;
+  margin-top: 1.5rem;
   max-width: 400px;
+  width: 100%;
   animation: ${fadeIn} 0.3s ease forwards;
 `;
 
 const SuccessBox = styled.div`
   background: #ecfdf5;
   color: #065f46;
-  padding: 16px;
-  border-radius: 12px;
+  padding: 1rem;
+  border-radius: 0.75rem;
   text-align: center;
-  margin-top: 24px;
+  margin-top: 1.5rem;
   max-width: 400px;
+  width: 100%;
   animation: ${fadeIn} 0.3s ease forwards;
 `;
 
@@ -153,27 +175,31 @@ const ModalOverlay = styled(motion.div)`
   align-items: center;
   justify-content: center;
   z-index: 999;
+  padding: 1rem;
+  touch-action: none;
 `;
 
 const ModalContent = styled(motion.div)`
   background: #fff;
-  padding: 24px;
-  border-radius: 12px;
+  padding: 1.5rem;
+  border-radius: 0.75rem;
   max-width: 300px;
+  width: 100%;
   text-align: center;
   position: relative;
+  margin: 1rem;
 `;
 
 const ModalTitle = styled.h2`
-  font-size: 24px;
+  font-size: 1.5rem;
   font-weight: 700;
-  margin-bottom: 16px;
+  margin-bottom: 1rem;
   color: #111;
 `;
 
 const ModalText = styled.p`
-  font-size: 16px;
-  margin-bottom: 16px;
+  font-size: 1rem;
+  margin-bottom: 1rem;
   color: #333;
 `;
 
@@ -181,7 +207,7 @@ const CountdownCircle = styled.div`
   position: relative;
   width: 80px;
   height: 80px;
-  margin: 0 auto 16px;
+  margin: 0 auto 1rem;
 `;
 
 const SpinningBorder = styled.div`
@@ -197,7 +223,7 @@ const CountdownNumber = styled.div`
   position: absolute;
   inset: 0;
   display: flex;
-  font-size: 24px;
+  font-size: 1.5rem;
   align-items: center;
   justify-content: center;
   color: #333;
@@ -220,10 +246,22 @@ const FeedbackForm = () => {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [error, setError] = useState(null);
 
+  useEffect(() => {
+    // Prevent body scroll when modal is open
+    if (showModal) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, [showModal]);
+
   // Fetch Hospital Name
   useEffect(() => {
     if (hospitalId) {
-      supabase.from('hospitals').select('name').eq('id', hospitalId).single()
+      supabase.from('hospitals').select('name').eq('hospital_id', hospitalId).single()
         .then(({ data, error }) => {
           if (error) {
             console.error('Error fetching hospital name:', error);
@@ -294,6 +332,13 @@ const FeedbackForm = () => {
     }
   };
 
+  const handleModalClose = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    window.open(`https://search.google.com/local/writereview?placeid=${placeId}`, '_blank');
+    setShowModal(false);
+  };
+
   if (error) {
     return (
       <PageContainer>
@@ -306,8 +351,8 @@ const FeedbackForm = () => {
     return (
       <PageContainer>
         <SuccessBox>
-          <h2 style={{ fontSize: '18px', fontWeight: '700', marginBottom: '8px' }}>Thank you for your feedback!</h2>
-          <p style={{ fontSize: '14px' }}>We appreciate you taking the time to share your experience with us.</p>
+          <h2 style={{ fontSize: '1.125rem', fontWeight: '700', marginBottom: '0.5rem' }}>Thank you for your feedback!</h2>
+          <p style={{ fontSize: '0.875rem' }}>We appreciate you taking the time to share your experience with us.</p>
         </SuccessBox>
       </PageContainer>
     );
@@ -321,7 +366,7 @@ const FeedbackForm = () => {
 
       <Card
         initial={{ opacity: 0, y: 10 }}
-        animate={{ opacity: 1, y:0 }}
+        animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
       >
         <Title>Your Feedback matters a lot to us</Title>
@@ -351,7 +396,7 @@ const FeedbackForm = () => {
         {rating > 0 && rating < 5 && (
           <motion.div
             initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y:0 }}
+            animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.3 }}
           >
             <FeedbackTextarea
@@ -375,7 +420,7 @@ const FeedbackForm = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            onClick={() => window.open(`https://search.google.com/local/writereview?placeid=${placeId}`, '_blank')}
+            onClick={handleModalClose}
           >
             <ModalContent
               initial={{ scale: 0.8, opacity: 0 }}
@@ -401,13 +446,13 @@ const FeedbackForm = () => {
                 <CountdownNumber>{countdown}</CountdownNumber>
               </CountdownCircle>
 
-              <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px'}}>
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem' }}>
                 <img 
                   src="https://www.google.com/favicon.ico" 
                   alt="Google" 
                   style={{ width: '20px', height: '20px' }}
                 />
-                <p style={{ fontSize: '14px', color: '#333' }}>Redirecting to Google Reviews...</p>
+                <p style={{ fontSize: '0.875rem', color: '#333' }}>Redirecting to Google Reviews...</p>
               </div>
             </ModalContent>
           </ModalOverlay>
